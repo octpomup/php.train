@@ -3,7 +3,7 @@
 
 echo "Hello!"
 
-  $host = 'php.train';
+  $host = 'localhost';
   $user = 'root';
   $pass = '';
   $db_name = 'fp';
