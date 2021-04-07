@@ -2,7 +2,7 @@
 
 
 
-if (isset($_POST['Year'])) 
+if (isset($_GET['Year'])) 
 	{
 	
 	$inputSearch = $_REQUEST['date'];
@@ -18,20 +18,23 @@ if (isset($_POST['Year']))
 
 
    
-	$result = $pdo->prepare("SELECT * FROM `users` where YEAR(bdate) = '$inputSearch'  ");
-	$result->execute();
+	$result = $pdo->prepare("SELECT * FROM `users` where YEAR(bdate) = ?  ");
+	if ($result->execute(array($_GET['date'])))
 
-	foreach($result as $rows)
 		{
-		echo $rows['first_name']." ";
-		echo $rows['last_name']." ";
-		echo $rows['bdate'],"<br/>";
+		while ($row = $result->fetch()) 
+			{
+						
+		echo $row['first_name']." ";
+		echo $row['last_name']." ";
+		echo $row['bdate'],"<br/>";
+			}
 		}
 	}
 
 ?>
-<form action="" method="POST">
-	Search: <input type="text" name="date" placeholder="vvedite daty" />
+<form action="" method="GET">
+	Search: <input type="text" name="date" placeholder="введите дату" />
 <input type="submit" name="Year" />
 
 </form>
